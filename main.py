@@ -1,9 +1,17 @@
 import json
 import datetime
 from argparse import ArgumentParser, Namespace
+from pathlib import Path
 
-with open("tasks.json") as f:
-    data = json.load(f)
+tasksfile = Path("tasks.json")
+if tasksfile.is_file():
+    with open("tasks.json") as f:
+        data = json.load(f)
+else:
+    data = {'tasks': []}
+    with open("tasks.json", mode="x", encoding="utf-8") as file:
+        json.dump(data, file, indent=2)
+
 
 parser = ArgumentParser()
 
